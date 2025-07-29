@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# OkTech Frontend
 
-## Getting Started
+Este é o frontend do projeto **OkTech**, desenvolvido com [Next.js](https://nextjs.org).
 
-First, run the development server:
+## 🚀 Começando
 
+Para rodar o projeto localmente, antes de iniciar, crie um arquivo `.env` na raiz do projeto seguindo o modelo do arquivo `.env.example`.
+
+Depois disso, rode os comandos abaixo:
 ```bash
+npm install
 npm run dev
-# or
+# ou
+yarn install
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000) no navegador para visualizar.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📁 Estrutura do Projeto
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/` — Páginas e rotas da aplicação
+- `components/` — Componentes reutilizáveis
+- `public/` — Arquivos estáticos
+- `template` — Componentes que irao gerar as telas
+- `constantes` — Para deixar elementos nao mutaveis, como mensagens de erro padrao, e outras constanes
+## 🛠️ Tecnologias Utilizadas
 
-## Learn More
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/) (se aplicável)
 
-To learn more about Next.js, take a look at the following resources:
+## 🤝 Contribuição
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📄 Licença
 
-## Deploy on Vercel
+Este projeto está sob a licença MIT.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Feito com 💙 por OkTech.

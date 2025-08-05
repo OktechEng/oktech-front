@@ -1,16 +1,33 @@
-'use client' // <- Adicione esta linha no topo para a maquina interpretar como client side
+'use client'
 
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useLogin } from "./hook/useLogin"; // Importa o hook customizado
+import { useLogin } from "./hook/useLogin";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function LoginTemplate() {
-    // Usa o hook customizado para obter tudo que precisa do formulário
-    const { register, handleSubmit, errors, isSubmitting, onSubmit } = useLogin();
+    const { register, handleSubmit, errors, isSubmitting, onSubmit, loginError, loginSuccess } = useLogin();
+
+    // Exibe o toast quando houver erro de login
+    useEffect(() => {
+        if (loginError) {
+            toast.error(loginError, { toastId: "loginError" });
+        }
+    }, [loginError]);
+
+    // Exibe o toast quando houver sucesso no login
+    useEffect(() => {
+        if (loginSuccess) {
+            toast.success(loginSuccess, { toastId: "loginSuccess" });
+        }
+    }, [loginSuccess]);
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-100">
+            <ToastContainer />
             <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-md">
                 <h1 className="mb-6 text-center text-2xl font-bold">Login</h1>
                 {/* handleSubmit faz a validação automática antes de chamar onSubmit */}

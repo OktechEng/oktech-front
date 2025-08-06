@@ -7,8 +7,8 @@ const cadastroSchema = z.object({
   cpf: z.string().min(11, "CPF inválido"),
   phone: z
     .string()
-    .min(8, "Telefone inválido")
-    .regex(/^\d+$/, "O telefone deve conter apenas números"),  
+    .transform((value) => value.replace(/\D/g, ''))
+    .pipe(z.string().min(10, "Telefone inválido").max(11, "Telefone inválido")),  
   password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres"),
   confirmPassword: z.string().min(6, "Confirmação da senha obrigatória"),
 }).refine((data) => data.email === data.confirmEmail, {

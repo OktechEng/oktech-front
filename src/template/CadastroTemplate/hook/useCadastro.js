@@ -6,6 +6,7 @@ import cadastroSchema from "../model/schema";
 import { useState } from "react";
 import api from '../../../services/api';
 import { useRouter } from "next/navigation";
+import { maskCPF, maskPhone, removeSpecialCharacters } from "@/lib/utils";
 
 export const useCadastro = () => {
   const [cadastroError, setCadastroError] = useState("");
@@ -17,6 +18,7 @@ export const useCadastro = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
+    setValue,
   } = useForm({
     resolver: zodResolver(cadastroSchema),
     defaultValues: {
@@ -34,8 +36,14 @@ export const useCadastro = () => {
     setCadastroError("");
     setCadastroSuccess("");
 
+    const formattedData = {
+      ...data,
+      cpf: removeSpecialCharacters(data.cpf),
+      phone: removeSpecialCharacters(data.phone),
+    };
+
     try {
-      const response = await api.post("/v1/auth/register", data);
+      const response = await api.post("/v1/auth/register", formattedData);
       console.log("Cadastro response:", response);
       setCadastroSuccess("Cadastro realizado com sucesso!");
       router.push("/login");
@@ -47,6 +55,16 @@ export const useCadastro = () => {
     }
   };
 
+  const handlePhoneChange = (e) => {
+    const { value } = e.target;
+    setValue("phone", maskPhone(value));
+  };
+
+  const handleCpfChange = (e) => {
+    const { value } = e.target;
+    setValue("cpf", maskCPF(value));
+  };
+
   return {
     register,
     handleSubmit,
@@ -56,5 +74,7 @@ export const useCadastro = () => {
     cadastroError,
     cadastroSuccess,
     router,
+    handlePhoneChange,
+    handleCpfChange,
   };
 };

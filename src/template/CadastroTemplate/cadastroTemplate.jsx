@@ -16,6 +16,8 @@ export default function CadastroTemplate() {
     cadastroError,
     cadastroSuccess,
     router,
+    handleCpfChange,
+    handlePhoneChange,
   } = useCadastro();
 
   return (
@@ -53,14 +55,28 @@ export default function CadastroTemplate() {
           {/* CPF */}
           <div>
             <Label htmlFor="cpf">CPF</Label>
-            <Input placeholder="CPF" id="cpf" type="text" {...register("cpf")} />
+            <Input
+              placeholder="CPF"
+              id="cpf"
+              type="text"
+              {...register("cpf")}
+              maxLength={14}
+              onChange={handleCpfChange}
+            />
             {errors.cpf && <p className="text-red-500 text-sm">{errors.cpf.message}</p>}
           </div>
 
           {/* Telefone */}
           <div>
             <Label htmlFor="phone">Telefone</Label>
-            <Input placeholder="Telefone" id="phone" type="tel" {...register("phone")} />
+            <Input
+              placeholder="Telefone"
+              id="phone"
+              type="tel"
+              {...register("phone")}
+              maxLength={15}
+              onChange={handlePhoneChange}
+            />
             {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
           </div>
 

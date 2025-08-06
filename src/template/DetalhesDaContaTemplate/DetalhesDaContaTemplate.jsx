@@ -2,9 +2,9 @@
 
 import { useDetalhesDaConta } from './hook/useDetalhesDaConta';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/tabs';
-import DetalhesDaConta from './Pages/DetalhesDaConta';
-import HistoricoPedidos from './Pages/HistoricoPedidos';
-import MetodosPagamento from './Pages/MetodosPagamento';
+import DetalhesDaConta from './pages/DetalhesDaConta';
+import HistoricoPedidos from './pages/HistoricoPedidos';
+import MetodosPagamento from './pages/MetodosPagamento';
 import React from "react";
 
 export default function DetalhesDaContaTemplate() {

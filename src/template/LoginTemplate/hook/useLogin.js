@@ -6,6 +6,7 @@ import loginSchema from "../model/schema";
 import api from '../../../services/api';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { fetchAndStoreUserData } from '../../../services/setLocalStorage';
 
 // Hook customizado para login, já integrado ao React Hook Form e Zod
 export const useLogin = () => {
@@ -37,8 +38,27 @@ export const useLogin = () => {
             if (token) {
                 // Salve o token JWT no localStorage
                 localStorage.setItem('jwtToken', token);
+                
+                // Buscar dados do usuário
+                try {
+                    await fetchAndStoreUserData("/v1/users");
+                    const userData = localStorage.getItem('userData');
+                    if (userData) {
+                        const userInfo = JSON.parse(userData);  
+                        // Salvar role separadamente para facilitar acesso
+                        localStorage.setItem('role', userInfo.role);
+                    }
+                } catch (userError) {
+                    console.error('Erro ao buscar dados do usuário:', userError);
+                }
+                
                 setLoginSuccess("Login realizado com sucesso!"); // Mensagem de sucesso
-                router.push("/"); // Redireciona para a página inicial após o login
+                
+                // Pequeno delay para mostrar o toast e depois redirecionar
+                setTimeout(() => {
+                    // Força reload da página para atualizar o header
+                    window.location.href = "/";
+                }, 1500);
             } else {
                 setLoginError("Falha no login: token não encontrado. Verifique suas credenciais.");
                 console.error('Token não encontrado na resposta da API.');

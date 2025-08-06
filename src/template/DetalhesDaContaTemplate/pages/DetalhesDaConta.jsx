@@ -4,6 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import React from "react";
 import ActionButtons from '../components/ActionButtons';
+import { maskCPF } from '@/lib/utils';
 
 export default function DetalhesDaConta({
   userData,
@@ -56,7 +57,7 @@ export default function DetalhesDaConta({
           </Label>
           <Input
             id="cpf"
-            value={userData?.cpf || ''}
+            value={maskCPF(userData?.cpf) || ''}
             disabled
             readOnly
             className="bg-gray-100 mt-1"

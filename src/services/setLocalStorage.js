@@ -7,14 +7,13 @@ import api from "@/services/api";
  */
 export async function fetchAndStoreUserData(url, storageKey = "userData") {
   try {
+    console.log('✅ Buscando dados do usuário da API:', url);
     const response = await api.get(url);
     const data = response.data;
 
     console.log("✅ Dados recebidos da API:", data);
-
     localStorage.setItem(storageKey, JSON.stringify(data));
-
-    console.log(`✅ Dados salvos no localStorage com a chave '${storageKey}'`);
+    return data;
   } catch (error) {
     if (error.response) {
       console.error("❌ Erro na resposta da API:", error.response.data);
@@ -23,5 +22,6 @@ export async function fetchAndStoreUserData(url, storageKey = "userData") {
     } else {
       console.error("❌ Erro inesperado ao fazer a requisição:", error.message);
     }
+    throw error;
   }
 }

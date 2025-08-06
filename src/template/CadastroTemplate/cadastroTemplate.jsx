@@ -4,6 +4,8 @@ import { useCadastro } from "./hook/useCadastro";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 
 export default function CadastroTemplate() {
@@ -16,7 +18,12 @@ export default function CadastroTemplate() {
     cadastroError,
     cadastroSuccess,
     router,
+    handleCpfChange,
+    handlePhoneChange,
   } = useCadastro();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <div className="min-h-screen px-4">
@@ -53,28 +60,56 @@ export default function CadastroTemplate() {
           {/* CPF */}
           <div>
             <Label htmlFor="cpf">CPF</Label>
-            <Input placeholder="CPF" id="cpf" type="text" {...register("cpf")} />
+            <Input
+              placeholder="CPF"
+              id="cpf"
+              type="text"
+              {...register("cpf")}
+              maxLength={14}
+              onChange={handleCpfChange}
+            />
             {errors.cpf && <p className="text-red-500 text-sm">{errors.cpf.message}</p>}
           </div>
 
           {/* Telefone */}
           <div>
             <Label htmlFor="phone">Telefone</Label>
-            <Input placeholder="Telefone" id="phone" type="tel" {...register("phone")} />
+            <Input
+              placeholder="Telefone"
+              id="phone"
+              type="tel"
+              {...register("phone")}
+              maxLength={15}
+              onChange={handlePhoneChange}
+            />
             {errors.phone && <p className="text-red-500 text-sm">{errors.phone.message}</p>}
           </div>
 
           {/* Senha */}
           <div>
             <Label htmlFor="password">Senha</Label>
-            <Input placeholder="Senha" id="password" type="password" {...register("password")} />
+            <div className="relative">
+              <Input placeholder="Senha" id="password" type={showPassword ? "text" : "password"} {...register("password")} />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-gray-500">
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+            </div>
             {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
           </div>
 
           {/* Confirmar Senha */}
           <div>
             <Label htmlFor="confirmPassword">Confirmar Senha</Label>
-            <Input placeholder="Confirme sua senha" id="confirmPassword" type="password" {...register("confirmPassword")} />
+            <div className="relative">
+              <Input placeholder="Confirme sua senha" id="confirmPassword" type={showConfirmPassword ? "text" : "password"} {...register("confirmPassword")} />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="text-gray-500">
+                  {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
+            </div>
             {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>}
           </div>
 

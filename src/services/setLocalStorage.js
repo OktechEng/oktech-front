@@ -10,9 +10,9 @@ export async function fetchAndStoreUserData(url, storageKey = "userData") {
     console.log('✅ Buscando dados do usuário da API:', url);
     const response = await api.get(url);
     const data = response.data;
-
     console.log("✅ Dados recebidos da API:", data);
     localStorage.setItem(storageKey, JSON.stringify(data));
+    console.log(`✅ Dados salvos no localStorage com a chave '${storageKey}'`);
     return data;
   } catch (error) {
     if (error.response) {

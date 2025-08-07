@@ -69,7 +69,7 @@ export function Header() {
     };
   }, []);
 
-  const isAdmin = role === "user" || role === "productor";
+  const isAdmin = role === "USER" || role === "productor";
   
   const handleLogout = () => {
     localStorage.removeItem('jwtToken');
@@ -91,8 +91,8 @@ export function Header() {
         <div className="flex gap-2 items-center">
           {/* Botões visíveis para usuários com role específica */}
           {isAdmin && (
-            <>
-              <Button className="bg-green-500">Meus Produtos</Button>
+            <><Button className="bg-green-500">Meus Produtos</Button>
+              <Button className="bg-green-500" onClick={() => router.push("/cadastro-produto")}>Cadastro de Produtos</Button>
               <Button className="bg-green-500">Relatórios</Button>
             </>
           )}

@@ -23,7 +23,7 @@ export function Header() {
 
     if (token) {
       setIsAuthenticated(true);
-      
+
       try {
         // Tentar buscar dados do usuário se não existirem
         let userData = localStorage.getItem('userData');
@@ -31,7 +31,7 @@ export function Header() {
           await fetchAndStoreUserData("/v1/users");
           userData = localStorage.getItem('userData');
         }
-        
+
         if (userData) {
           const userInfo = JSON.parse(userData);
           setUserName(userInfo.name || '');
@@ -50,27 +50,28 @@ export function Header() {
 
   useEffect(() => {
     checkAuthentication();
-    
+
     // Listener para mudanças no localStorage (quando outro componente salva o token)
     const handleStorageChange = (e) => {
       if (e.key === 'jwtToken' || e.key === 'userData') {
         checkAuthentication();
       }
     };
-    
+
     window.addEventListener('storage', handleStorageChange);
-    
+
     // Verificar periodicamente se há mudanças (fallback)
     const interval = setInterval(checkAuthentication, 2000);
-    
+
     return () => {
       window.removeEventListener('storage', handleStorageChange);
       clearInterval(interval);
     };
   }, []);
 
-  const isAdmin = role === "user" || role === "productor";
-  
+  const isAdmin = role === "ADMIN";
+  const isProductor = role === "PRODUCTOR" || role === "ADMIN";
+
   const handleLogout = () => {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('role');
@@ -96,19 +97,28 @@ export function Header() {
               <Button className="bg-green-500">Relatórios</Button>
             </>
           )}
+          {isProductor && (
+            <>
+              <Button className="bg-green-500">Meus Produtos</Button>
+            </>
+          )}
+
 
           {/* Se usuário está autenticado, mostra dropdown do perfil */}
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <CircleUser 
-                  className="h-8 w-8 text-green-500 cursor-pointer hover:scale-105 transition-transform" 
+                <CircleUser
+                  className="h-8 w-8 text-green-500 cursor-pointer hover:scale-105 transition-transform"
                 />
                 <span className="sr-only">Menu do usuário</span>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => router.push("/conta")}>
                   Meu Perfil
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push("/cadastro-loja")}>
+                  Cadastrar Loja
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleLogout}>
                   Sair

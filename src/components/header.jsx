@@ -139,8 +139,6 @@ export function Header() {
             <>
               <Button className="bg-green-500" onClick={() => router.push("/cadastro-produto")}>Cadastro de Produtos</Button>
               <Button className="bg-green-500">Meus Produtos</Button>
-              <Button className="bg-green-500" onClick={() => router.push("/cadastro-produto")}>Cadastro de Produtos</Button>
-
             </>
           )}
 

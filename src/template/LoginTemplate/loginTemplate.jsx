@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useLogin } from "./hook/useLogin";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
 
 export function LoginTemplate() {
     const { register, handleSubmit, errors, isSubmitting, onSubmit, loginError, loginSuccess } = useLogin();

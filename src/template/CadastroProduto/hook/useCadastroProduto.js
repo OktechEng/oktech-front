@@ -68,7 +68,6 @@ export const useCadastroProduto = () => {
       const response = await api.post(`/v1/products/create/${shopId}`, data);
       console.log("Cadastro de produto response:", response);
       setCadastroSuccess("Produto cadastrado com sucesso!");
-      router.push("/login");
     } catch (error) {
       setCadastroError("Erro ao cadastrar produto. Tente novamente.");
       console.error("Erro ao cadastrar produto:", error);

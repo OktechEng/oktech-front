@@ -32,9 +32,8 @@ export const useCadastroLoja = () => {
     },
   });
 
-  if (!checkAuth()) {
-    return;
-  }
+  // Não retornar cedo no hook para evitar undefined em SSR/prerender
+  // O template já controla renderização com isLoading/isAuthenticated
 
   const onSubmit = async (data) => {
     setCadastroError("");
@@ -42,6 +41,7 @@ export const useCadastroLoja = () => {
 
     // Verificar novamente se o token existe antes de fazer o cadastro
     if (!checkAuth()) {
+      setCadastroError("Você precisa estar logado para cadastrar a loja.");
       return;
     }
 

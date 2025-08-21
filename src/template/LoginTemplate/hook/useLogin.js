@@ -80,5 +80,6 @@ export const useLogin = () => {
         onSubmit,
         loginError,
         loginSuccess, // Retorne a mensagem de sucesso
+        router, // Adicionar router ao retorno
     };
 };

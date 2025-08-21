@@ -46,8 +46,8 @@ export default function CadastroTemplate() {
       <ToastContainer />
       <h1 className="text-2xl font-bold text-center my-6">Cadastro</h1>
       <div className="flex justify-center">
-        <hr className="border-8 rounded-3xl w-2/6 border-orange-400" />
-      </div>      
+        <hr className="border-4 rounded-3xl w-2/6 border-orange-400" />
+      </div>    
       <div className="max-w-md mx-auto bg-white p-6 rounded-lg ">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           

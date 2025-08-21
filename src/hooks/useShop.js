@@ -42,7 +42,13 @@ export function useShop() {
     setShopData(null);
     setHasShop(false);
     setError(null);
-  }, [setShopData, setHasShop, setError]);
+  }, []);
+
+  const clearShopData = useCallback(() => {
+    setShopData(null);
+    setHasShop(false);
+    setError(null);
+  }, []);
 
   return {
     shopData,

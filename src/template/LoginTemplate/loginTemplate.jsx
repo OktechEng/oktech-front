@@ -62,7 +62,7 @@ export function LoginTemplate() {
                                 required
                             />
                             <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-gray-500">
+                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-gray-500 cursor-pointer">
                                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                 </button>
                             </div>

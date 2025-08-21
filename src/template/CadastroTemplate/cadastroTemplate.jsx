@@ -106,7 +106,7 @@ export default function CadastroTemplate() {
             <div className="relative">
               <Input placeholder="Senha" id="password" type={showPassword ? "text" : "password"} {...register("password")} />
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-gray-500">
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="text-gray-500 cursor-pointer">
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
@@ -120,7 +120,7 @@ export default function CadastroTemplate() {
             <div className="relative">
               <Input placeholder="Confirme sua senha" id="confirmPassword" type={showConfirmPassword ? "text" : "password"} {...register("confirmPassword")} />
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="text-gray-500">
+                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="text-gray-500 cursor-pointer">
                   {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>

@@ -16,9 +16,14 @@ const Textarea = forwardRef(({
   const [internalValue, setInternalValue] = useState(value || "");
 
   useEffect(() => {
-    if (value !== undefined) {
-      setInternalValue(value);
-      setCharCount(value.length);
+    // Atualizar o estado interno sempre que o value mudar (incluindo quando for resetado)
+    const newValue = value || "";
+    setInternalValue(newValue);
+    setCharCount(newValue.length);
+    
+    // Reset do toast quando o campo for limpo
+    if (newValue === "") {
+      setHasShownLimitToast(false);
     }
   }, [value]);
 
@@ -48,13 +53,6 @@ const Textarea = forwardRef(({
     setInternalValue(newValue);
     setCharCount(newValue.length);
     
-    // Criar evento sintético com o valor truncado
-    const syntheticEvent = {
-      ...e,
-      target: {
-        ...e.target,
-        value: newValue
-      }
     // Create a synthetic event that preserves prototype and methods
     const syntheticEvent = Object.create(e);
     syntheticEvent.target = Object.create(e.target);
@@ -67,8 +65,6 @@ const Textarea = forwardRef(({
 
   // Determinar a cor do contador
   const getCounterColor = () => {
-    if (charCount >= maxLength) {
-      return "text-red-500";
     const orangeThreshold = Math.floor(maxLength * 0.9);
     if (charCount >= maxLength) {
       return "text-red-500";

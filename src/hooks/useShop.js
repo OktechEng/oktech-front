@@ -36,13 +36,13 @@ export function useShop() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [setLoading, setError, setShopData, setHasShop]);
 
   const clearShopData = useCallback(() => {
     setShopData(null);
     setHasShop(false);
     setError(null);
-  }, []);
+  }, [setShopData, setHasShop, setError]);
 
   return {
     shopData,

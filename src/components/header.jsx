@@ -12,7 +12,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import CartSheet from "@/components/CartSheet";
-import { useShop } from '@/hooks/useShop';
 
 export function Header() {
   const [role, setRole] = useState(null);
@@ -20,9 +19,6 @@ export function Header() {
   const [userName, setUserName] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
-
-  // Adicionar hook da loja
-  const { hasShop, fetchShopData } = useShop();
 
   // Função para verificar autenticação
   const checkAuthentication = async () => {
@@ -44,11 +40,6 @@ export function Header() {
           setUserName(userInfo.name || '');
           setRole(userInfo.role || '');
           localStorage.setItem('role', userInfo.role || '');
-          
-          // Se for produtor, verificar se tem loja
-          if (userInfo.role === 'PRODUCTOR') {
-            await fetchShopData();
-          }
         }
       } catch (error) {
         console.error('Erro ao buscar dados do usuário:', error);

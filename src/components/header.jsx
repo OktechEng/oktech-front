@@ -12,6 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import CartSheet from "@/components/CartSheet";
+import { useShop } from '@/hooks/useShop';
 
 export function Header() {
   const [role, setRole] = useState(null);
@@ -19,6 +20,9 @@ export function Header() {
   const [userName, setUserName] = useState('');
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
+
+  // Adicionar hook da loja
+  const { hasShop, fetchShopData } = useShop();
 
   // Função para verificar autenticação
   const checkAuthentication = async () => {
@@ -40,6 +44,11 @@ export function Header() {
           setUserName(userInfo.name || '');
           setRole(userInfo.role || '');
           localStorage.setItem('role', userInfo.role || '');
+          
+          // Se for produtor, verificar se tem loja
+          if (userInfo.role === 'PRODUCTOR') {
+            await fetchShopData();
+          }
         }
       } catch (error) {
         console.error('Erro ao buscar dados do usuário:', error);
@@ -156,9 +165,12 @@ export function Header() {
                 <DropdownMenuItem onClick={() => router.push("/conta")}>
                   Meu Perfil
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push("/cadastro-loja")}>
-                  Cadastrar Loja
-                </DropdownMenuItem>
+                {/* Mostrar "Cadastrar Loja" apenas para usuários com role USER */}
+                {role === 'USER' && (
+                  <DropdownMenuItem onClick={() => router.push("/cadastro-loja")}>
+                    Cadastrar Loja
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem onClick={handleLogout}>
                   Sair
                 </DropdownMenuItem>

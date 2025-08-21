@@ -51,7 +51,7 @@ export const useCadastroLoja = () => {
     };
 
     try {
-      const response = await api.post("/v1/shops/create", formattedData);
+      const response = await api.post("/v1/shops", formattedData);
       console.log("Cadastro de loja response:", response);
       setCadastroSuccess("Loja cadastrada com sucesso!");
       router.push("/login");

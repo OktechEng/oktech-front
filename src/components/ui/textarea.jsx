@@ -55,7 +55,10 @@ const Textarea = forwardRef(({
         ...e.target,
         value: newValue
       }
-    };
+    // Create a synthetic event that preserves prototype and methods
+    const syntheticEvent = Object.create(e);
+    syntheticEvent.target = Object.create(e.target);
+    syntheticEvent.target.value = newValue;
     
     if (onChange) {
       onChange(syntheticEvent);

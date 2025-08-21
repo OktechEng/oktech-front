@@ -66,7 +66,10 @@ const Textarea = forwardRef(({
   const getCounterColor = () => {
     if (charCount >= maxLength) {
       return "text-red-500";
-    } else if (charCount > 470) {
+    const orangeThreshold = Math.floor(maxLength * 0.9);
+    if (charCount >= maxLength) {
+      return "text-red-500";
+    } else if (charCount > orangeThreshold) {
       return "text-orange-500";
     }
     return "text-gray-500";

@@ -5,9 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
-
 
 export default function CadastroTemplate() {
   const {
@@ -26,17 +27,30 @@ export default function CadastroTemplate() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  // Exibe o toast quando houver erro de cadastro
+  useEffect(() => {
+    if (cadastroError) {
+      toast.error(cadastroError, { toastId: "cadastroError" });
+    }
+  }, [cadastroError]);
+
+  // Exibe o toast quando houver sucesso no cadastro
+  useEffect(() => {
+    if (cadastroSuccess) {
+      toast.success(cadastroSuccess, { toastId: "cadastroSuccess" });
+    }
+  }, [cadastroSuccess]);
+
   return (
     <div className="min-h-screen px-4">
+      <ToastContainer />
       <h1 className="text-2xl font-bold text-center my-6">Cadastro</h1>
       <div className="flex justify-center">
         <hr className="border-8 rounded-3xl w-2/6 border-orange-400" />
       </div>      
       <div className="max-w-md mx-auto bg-white p-6 rounded-lg ">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {cadastroError && <p className="text-red-600 text-sm">{cadastroError}</p>}
-          {cadastroSuccess && <p className="text-green-600 text-sm">{cadastroSuccess}</p>}
-
+          
           {/* Nome */}
           <div>
             <Label htmlFor="name">Nome</Label>

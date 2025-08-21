@@ -44,12 +44,6 @@ export function useShop() {
     setError(null);
   }, []);
 
-  const clearShopData = useCallback(() => {
-    setShopData(null);
-    setHasShop(false);
-    setError(null);
-  }, []);
-
   return {
     shopData,
     loading,

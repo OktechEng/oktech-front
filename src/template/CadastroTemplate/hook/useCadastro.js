@@ -56,7 +56,7 @@ export const useCadastro = () => {
       console.error("Erro ao cadastrar:", error);
       // Não limpa os dados em caso de erro para permitir correção
     }
-    // Removido o reset() do finally - os dados permanecem no formulário
+    // reset() agora é chamado apenas após sucesso, mantendo dados em caso de erro
   };
 
   const handlePhoneChange = (e) => {

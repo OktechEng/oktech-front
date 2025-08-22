@@ -1,5 +1,3 @@
-// src/template/MeusProdutos/MeusProdutosTemplate.jsx
-
 import React from "react";
 
 const produtos = [

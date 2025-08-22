@@ -7,6 +7,7 @@ import CheckoutButton from "@/components/CheckoutButton";
 import { useHome } from "./hook/useHome";
 import { Button } from "@/components/ui/button"
 import {Card,CardHeader,CardContent,CardTitle} from "@/components/ui/card"
+import SobreNosTemplate from "@/template/SobreNos/SobreNosTemplate";
 
 export default function HomeTemplate() {
   const {
@@ -91,6 +92,10 @@ export default function HomeTemplate() {
             </Button>
           </div>
         </div>
+      </section>
+
+      <section>
+        <SobreNosTemplate />
       </section>
 
       {/* Features Section */}

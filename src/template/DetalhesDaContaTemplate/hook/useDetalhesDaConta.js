@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '@/services/api';
 import { useAuth } from '@/hooks/useAuth';
+import { useShop } from '@/hooks/useShop';
 
 export function useDetalhesDaConta() {
   const [userData, setUserData] = useState(null);
@@ -8,11 +9,18 @@ export function useDetalhesDaConta() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('detalhe');
   
-  // Usar o hook genérico de autenticação
   const { isAuthenticated, authError, isLoading: authLoading, checkAuth } = useAuth();
+  
+  const { 
+    shopData, 
+    loading: shopLoading, 
+    error: shopError, 
+    hasShop, 
+    fetchShopData, 
+    clearShopData 
+  } = useShop();
 
   useEffect(() => {
-    // Só buscar dados se estiver autenticado
     if (isAuthenticated && !authLoading) {
       const fetchUserData = async () => {
         try {
@@ -32,6 +40,16 @@ export function useDetalhesDaConta() {
     }
   }, [isAuthenticated, authLoading]);
 
+  useEffect(() => {
+    if (userData) {
+      if (userData.role === 'PRODUCTOR') {
+        fetchShopData();
+      } else {
+        clearShopData();
+      }
+    }
+  }, [userData, fetchShopData, clearShopData]);
+
   const handleTabChange = (tabValue) => {
     setActiveTab(tabValue);
   };
@@ -46,14 +64,23 @@ export function useDetalhesDaConta() {
     console.log('Excluir conta');
   };
 
+  const userRole = userData?.role;
+  const isProducer = userRole === 'PRODUCTOR';
+  const isUser = userRole === 'USER';
+
   return {
     userData,
-    loading,
-    error,
+    loading: loading || shopLoading,
+    error: error || shopError,
     activeTab,
     isAuthenticated,
     authError,
     authLoading,
+    userRole,
+    isProducer,
+    isUser,
+    shopData,
+    hasShop,
     handleTabChange,
     handleEditInfo,
     handleDeleteAccount

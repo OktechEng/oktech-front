@@ -3,7 +3,10 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { useCadastroLoja } from "./hook/useCadastroLoja";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CadastroTemplate() {
   const {
@@ -12,8 +15,6 @@ export default function CadastroTemplate() {
     onSubmit,
     errors,
     isSubmitting,
-    cadastroError,
-    cadastroSuccess,
     authError,
     isLoading,
     isAuthenticated,
@@ -46,26 +47,41 @@ export default function CadastroTemplate() {
 
   return (
     <div className="min-h-screen px-4">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <h1 className="text-2xl font-bold text-center my-6">Cadastro de Loja</h1>
       <div className="flex justify-center">
-        <hr className="border-8 rounded-3xl w-2/6 border-orange-400" />
+        <hr className="border-4 rounded-3xl w-1/6 border-orange-400" />
       </div>
       <div className="max-w-md mx-auto bg-white p-6 rounded-lg">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {cadastroError && <p className="text-red-600 text-sm">{cadastroError}</p>}
-          {cadastroSuccess && <p className="text-green-600 text-sm">{cadastroSuccess}</p>}
-
           {/* Nome */}
           <div>
-            <Label htmlFor="name">Nome</Label>
+            <Label htmlFor="name">Nome da Loja</Label>
             <Input placeholder="Nome" id="name" type="text" {...register("name")} />
             {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
           </div>
 
-          {/* Descrição */}
+          {/* Descrição - Textarea com contador */}
           <div>
-            <Label htmlFor="description">Descrição</Label>
-            <Input placeholder="Descrição" id="description" type="text" {...register("description")} />
+            <Label htmlFor="description">Descrição da loja</Label>
+            <Textarea 
+              placeholder="Descrição da loja" 
+              id="description" 
+              {...register("description")}
+              className="min-h-20"
+              maxLength={512}
+              showCounter={true}
+            />
             {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
           </div>
 
@@ -87,10 +103,6 @@ export default function CadastroTemplate() {
             {isSubmitting ? "Cadastrando loja..." : "Cadastrar Loja"}
           </Button>
         </form>
-        <p className="text-center text-sm mt-4">
-          Já tem uma conta?{" "}
-          <a onClick={() => router.push("/login")} className="text-blue-500 hover:underline cursor-pointer">Faça login</a>
-        </p>
       </div>
     </div>
   );

@@ -156,9 +156,12 @@ export function Header() {
                 <DropdownMenuItem onClick={() => router.push("/conta")}>
                   Meu Perfil
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push("/cadastro-loja")}>
-                  Cadastrar Loja
-                </DropdownMenuItem>
+                {/* Mostrar "Cadastrar Loja" apenas para usuários com role USER */}
+                {role === 'USER' && (
+                  <DropdownMenuItem onClick={() => router.push("/cadastro-loja")}>
+                    Cadastrar Loja
+                  </DropdownMenuItem>
+                )}
                 <DropdownMenuItem onClick={handleLogout}>
                   Sair
                 </DropdownMenuItem>

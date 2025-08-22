@@ -16,6 +16,9 @@ export default function DetalhesDaContaTemplate() {
     isAuthenticated,
     authError,
     authLoading,
+    isProducer,
+    shopData,
+    hasShop,
     handleTabChange,
     handleEditInfo,
     handleDeleteAccount,
@@ -80,27 +83,36 @@ export default function DetalhesDaContaTemplate() {
             >
               Histórico de Pedidos
             </TabsTrigger>
-            <TabsTrigger
-              value="pagamento"
-              activeTab={activeTab}
-              onClick={() => handleTabChange("pagamento")}
-            >
-              Método de Pagamento
-            </TabsTrigger>
+            {/* Ocultar aba de métodos de pagamento para produtores */}
+            {!isProducer && (
+              <TabsTrigger
+                value="pagamento"
+                activeTab={activeTab}
+                onClick={() => handleTabChange("pagamento")}
+              >
+                Método de Pagamento
+              </TabsTrigger>
+            )}
           </TabsList>
           <TabsContent value="detalhe" activeTab={activeTab}>
             <DetalhesDaConta
               userData={userData}
               handleEditInfo={handleEditInfo}
               handleDeleteAccount={handleDeleteAccount}
+              isProducer={isProducer}
+              shopData={shopData}
+              hasShop={hasShop}
             />
           </TabsContent>
           <TabsContent value="historico" activeTab={activeTab}>
             <HistoricoPedidos />
           </TabsContent>
-          <TabsContent value="pagamento" activeTab={activeTab}>
-            <MetodosPagamento />
-          </TabsContent>
+          {/* Ocultar conteúdo de métodos de pagamento para produtores */}
+          {!isProducer && (
+            <TabsContent value="pagamento" activeTab={activeTab}>
+              <MetodosPagamento />
+            </TabsContent>
+          )}
         </Tabs>
       </div>
     </div>

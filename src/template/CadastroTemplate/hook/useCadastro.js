@@ -45,14 +45,18 @@ export const useCadastro = () => {
     try {
       const response = await api.post("/v1/auth/register", formattedData);
       console.log("Cadastro response:", response);
-      setCadastroSuccess("Cadastro realizado com sucesso!");
-      router.push("/login");
+      setCadastroSuccess("Cadastro realizado com sucesso! Indo para a página de login.");
+      
+      // Pequeno delay para mostrar o toast e depois redirecionar
+      setTimeout(() => {
+        router.push("/login");
+      }, 2000);
     } catch (error) {
       setCadastroError("Erro ao realizar cadastro. Tente novamente.");
       console.error("Erro ao cadastrar:", error);
-    } finally {
-      reset();
+      // Não limpa os dados em caso de erro para permitir correção
     }
+    // reset() agora é chamado apenas após sucesso, mantendo dados em caso de erro
   };
 
   const handlePhoneChange = (e) => {

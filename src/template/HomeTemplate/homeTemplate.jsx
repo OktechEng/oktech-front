@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import ImageSlider from "@/components/ImageSlider";
 import ProductCard from "@/components/ProductCard";
 import CheckoutButton from "@/components/CheckoutButton";
@@ -10,6 +11,7 @@ import {Card,CardHeader,CardContent,CardTitle} from "@/components/ui/card"
 import SobreNosTemplate from "@/template/SobreNos/SobreNosTemplate";
 
 export default function HomeTemplate() {
+  const router = useRouter();
   const {
     scrollContainerRef,
     scrollLeft,
@@ -19,13 +21,7 @@ export default function HomeTemplate() {
     error,
   } = useHome();
 
-  const categories = [
-    { name: "Frutas", image: "/img/frutas.jpg" },
-    { name: "Legumes", image: "/img/legumes.jpg" },
-    { name: "Verduras", image: "/img/verduras.jpg" },
-    { name: "Cestas", image: "/img/cestas.jpg" },
-    { name: "Sucos", image: "/img/sucos.jpg" }
-  ]
+  
 
   return (
     <div className="min-h-screen bg-[#fff8f0]">
@@ -87,7 +83,10 @@ export default function HomeTemplate() {
 
           {/* Ações */}
           <div className="flex items-center justify-center mt-8">
-            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold text-md transition-all duration-300 hover:scale-105 shadow-lg">
+            <Button 
+              onClick={() => router.push('/produtos')}
+              className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold text-md transition-all duration-300 hover:scale-105 shadow-lg"
+            >
               Ver Todos os Produtos
             </Button>
           </div>

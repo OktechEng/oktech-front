@@ -21,8 +21,13 @@ export default function HomeTemplate() {
     loading,
     error,
   } = useHome();
-
-  
+  const categories = [
+    { name: "Frutas", image: "/img/frutas.jpg" },
+    { name: "Legumes", image: "/img/legumes.jpg" },
+    { name: "Verduras", image: "/img/verduras.jpg" },
+    { name: "Cestas", image: "/img/cestas.jpg" },
+    { name: "Sucos", image: "/img/sucos.jpg" }
+  ]
 
   return (
     <div className="min-h-screen bg-white">
@@ -84,17 +89,14 @@ export default function HomeTemplate() {
 
           {/* Ações */}
           <div className="flex items-center justify-center mt-8">
-            <Button 
-              onClick={() => router.push('/produtos')}
-              className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold text-md transition-all duration-300 hover:scale-105 shadow-lg"
-            >
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold text-md transition-all duration-300 hover:scale-105 shadow-lg" onClick={() => router.push("/login")} >
               Ver Todos os Produtos
             </Button>
           </div>
         </div>
       </section>
 
-      <section>
+      <section id="sobre-nos">
         <SobreNosTemplate />
       </section>
 

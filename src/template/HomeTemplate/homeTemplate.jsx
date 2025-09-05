@@ -21,7 +21,6 @@ export default function HomeTemplate() {
     loading,
     error,
   } = useHome();
-  const router = useRouter();
   const categories = [
     { name: "Frutas", image: "/img/frutas.jpg" },
     { name: "Legumes", image: "/img/legumes.jpg" },

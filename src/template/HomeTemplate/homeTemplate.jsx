@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import ImageSlider from "@/components/ImageSlider";
 import ProductCard from "@/components/ProductCard";
 import CheckoutButton from "@/components/CheckoutButton";
@@ -8,10 +9,10 @@ import { useHome } from "./hook/useHome";
 import { Button } from "@/components/ui/button"
 import {Card,CardHeader,CardContent,CardTitle} from "@/components/ui/card"
 import SobreNosTemplate from "@/template/SobreNos/SobreNosTemplate";
-import { useRouter } from "next/navigation";
-
+import  TelaFaq  from "./components/faq"
 
 export default function HomeTemplate() {
+  const router = useRouter();
   const {
     scrollContainerRef,
     scrollLeft,
@@ -30,7 +31,7 @@ export default function HomeTemplate() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#fff8f0]">
+    <div className="min-h-screen bg-white">
       {/* Slider Section */}
       <ImageSlider />
 
@@ -152,7 +153,7 @@ export default function HomeTemplate() {
           </div>
         </div>
       </section>
-
+      <TelaFaq/>
       {/* Footer */}
       <footer className="bg-green-800 text-white py-12">
         <div className="max-w-6xl mx-auto px-8">

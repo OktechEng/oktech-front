@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { listProducts } from "@/services/products";
-
-
+import { listProductsWithImages } from "@/services/products";
 
 export function useHome() {
   const scrollContainerRef = useRef(null);
@@ -13,13 +11,13 @@ export function useHome() {
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+      scrollContainerRef.current.scrollBy({ left: -300, behavior: "smooth" });
     }
   };
 
   const scrollRight = () => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+      scrollContainerRef.current.scrollBy({ left: 300, behavior: "smooth" });
     }
   };
 
@@ -28,10 +26,10 @@ export function useHome() {
       try {
         setLoading(true);
         setError("");
-        const data = await listProducts();
-        setProducts(Array.isArray(data?.content) ? data.content : []);
+        const response = await listProductsWithImages({ size: 10 }); // Limita a 10 produtos na home
+        setProducts(response.content || []);
       } catch (err) {
-        setError("Falha ao carregar produtos");
+        setError("Falha ao carregar produtos e imagens");
       } finally {
         setLoading(false);
       }

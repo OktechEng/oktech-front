@@ -156,6 +156,9 @@ export function Header() {
                 <DropdownMenuItem onClick={() => router.push("/conta")}>
                   Meu Perfil
                 </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push("/meusProdutos")}>
+                  Meus Produtos
+                </DropdownMenuItem>
                 {/* Mostrar "Cadastrar Loja" apenas para usuários com role USER */}
                 {role === 'USER' && (
                   <DropdownMenuItem onClick={() => router.push("/cadastro-loja")}>

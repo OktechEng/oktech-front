@@ -8,6 +8,8 @@ import { useHome } from "./hook/useHome";
 import { Button } from "@/components/ui/button"
 import {Card,CardHeader,CardContent,CardTitle} from "@/components/ui/card"
 import SobreNosTemplate from "@/template/SobreNos/SobreNosTemplate";
+import { useRouter } from "next/navigation";
+
 
 export default function HomeTemplate() {
   const {
@@ -18,7 +20,7 @@ export default function HomeTemplate() {
     loading,
     error,
   } = useHome();
-
+  const router = useRouter();
   const categories = [
     { name: "Frutas", image: "/img/frutas.jpg" },
     { name: "Legumes", image: "/img/legumes.jpg" },
@@ -87,14 +89,14 @@ export default function HomeTemplate() {
 
           {/* Ações */}
           <div className="flex items-center justify-center mt-8">
-            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold text-md transition-all duration-300 hover:scale-105 shadow-lg">
+            <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold text-md transition-all duration-300 hover:scale-105 shadow-lg" onClick={() => router.push("/login")} >
               Ver Todos os Produtos
             </Button>
           </div>
         </div>
       </section>
 
-      <section>
+      <section id="sobre-nos">
         <SobreNosTemplate />
       </section>
 

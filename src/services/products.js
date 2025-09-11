@@ -86,4 +86,36 @@ export async function listProductsWithImages(params = {}) {
   }
 }
 
+export async function updateProduct(productId, productData) {
+  try {
+    const response = await api.put(`/v1/products/${productId}`, productData);
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating product ${productId}:`, error);
+    if (error.response) {
+      throw new Error(`API Error: ${error.response.status} - ${error.response.data?.message || 'Erro ao atualizar produto'}`);
+    } else if (error.request) {
+      throw new Error('Network Error: Não foi possível conectar ao servidor.');
+    } else {
+      throw new Error(`Request Error: ${error.message}`);
+    }
+  }
+}
+
+export async function removeProduct(productId) {
+  try {
+    const response = await api.delete(`/v1/products/${productId}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error removing product ${productId}:`, error);
+    if (error.response) {
+      throw new Error(`API Error: ${error.response.status} - ${error.response.data?.message || 'Erro ao remover produto'}`);
+    } else if (error.request) {
+      throw new Error('Network Error: Não foi possível conectar ao servidor.');
+    } else {
+      throw new Error(`Request Error: ${error.message}`);
+    }
+  }
+}
+
 

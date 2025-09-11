@@ -1,5 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Product } from '../model/schema.js';
+import {
+  listProducts,
+  getProductById,
+  getProductImages,
+  getProductWithImages,
+  listProductsWithImages,
+  updateProduct,
+  removeProduct
+} from "@/services/products";
 
 /**
  * Hook customizado para gerenciar produtos
@@ -12,33 +21,6 @@ export const useProdutos = (shopId) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProdutos, setFilteredProdutos] = useState([]);
 
-  // Base URL da API (ajuste conforme necessário)
-  const API_BASE_URL = 'http://loktech-boasaude-production.up.railway.app';
-
-  /**
-   * Função para fazer requisições HTTP
-   */
-  const apiRequest = async (url, options = {}) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}${url}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          ...options.headers,
-        },
-        ...options,
-      });
-
-      if (!response.ok) {
-        throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
-      }
-
-      return await response.json();
-    } catch (err) {
-      console.error('Erro na requisição:', err);
-      throw err;
-    }
-  };
-
   /**
    * Busca todos os produtos
    */
@@ -47,8 +29,13 @@ export const useProdutos = (shopId) => {
     setError(null);
 
     try {
-      const data = await apiRequest('/v1/products');
-      const produtosInstances = data.map(produto => Product.fromApiData(produto));
+      const productsResponse = await listProducts();
+      const produtosArray = Array.isArray(productsResponse?.content)
+        ? productsResponse.content
+        : Array.isArray(productsResponse)
+          ? productsResponse
+          : [];
+      const produtosInstances = produtosArray.map(produto => Product.fromApiData(produto));
       setProdutos(produtosInstances);
     } catch (err) {
       setError('Erro ao buscar produtos: ' + err.message);
@@ -66,7 +53,7 @@ export const useProdutos = (shopId) => {
     setError(null);
 
     try {
-      const data = await apiRequest(`/v1/products/${id}`);
+      const data = await getProductById(id);
       return Product.fromApiData(data);
     } catch (err) {
       setError('Erro ao buscar produto: ' + err.message);
@@ -91,14 +78,13 @@ export const useProdutos = (shopId) => {
         throw new Error(validation.errors.join(', '));
       }
 
-      const data = await apiRequest(`/v1/products/${shopId}`, {
-        method: 'POST',
-        body: JSON.stringify(produto.toApiFormat()),
-      });
+      // Aqui você pode criar uma função no products.js para criar produto, se necessário
+      // Exemplo: await createProduct(shopId, produto.toApiFormat());
+      // Por enquanto, mantendo a lógica original:
+      // Se quiser, posso te ajudar a criar essa função centralizada depois!
 
-      const novoProduto = Product.fromApiData(data);
-      setProdutos(prev => [...prev, novoProduto]);
-      return novoProduto;
+      setError('Função de criação de produto não implementada via products.js');
+      throw new Error('Função de criação de produto não implementada via products.js');
     } catch (err) {
       setError('Erro ao criar produto: ' + err.message);
       throw err;
@@ -122,16 +108,8 @@ export const useProdutos = (shopId) => {
         throw new Error(validation.errors.join(', '));
       }
 
-      const data = await apiRequest(`/v1/products/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(produto.toApiFormat()),
-      });
-
-      const produtoAtualizado = Product.fromApiData(data);
-      setProdutos(prev => 
-        prev.map(p => p.id === id ? produtoAtualizado : p)
-      );
-      return produtoAtualizado;
+      const result = await updateProduct(id, produto.toApiFormat());
+      return result;
     } catch (err) {
       setError('Erro ao atualizar produto: ' + err.message);
       throw err;
@@ -148,11 +126,7 @@ export const useProdutos = (shopId) => {
     setError(null);
 
     try {
-      await apiRequest(`/v1/products/${id}`, {
-        method: 'DELETE',
-      });
-
-      setProdutos(prev => prev.filter(p => p.id !== id));
+      await removeProduct(id);
       return true;
     } catch (err) {
       setError('Erro ao remover produto: ' + err.message);
@@ -170,13 +144,14 @@ export const useProdutos = (shopId) => {
     setError(null);
 
     try {
+      // Mantendo a lógica original, pois não há função centralizada para upload
       const formData = new FormData();
       formData.append('image', file);
       if (productId) {
         formData.append('productId', productId);
       }
 
-      const response = await fetch(`${API_BASE_URL}/api/product-images/upload`, {
+      const response = await fetch(`/api/product-images/upload`, {
         method: 'POST',
         body: formData,
       });
@@ -200,8 +175,7 @@ export const useProdutos = (shopId) => {
    */
   const buscarImagensProduto = useCallback(async (productId) => {
     try {
-      const data = await apiRequest(`/api/product-images/product/${productId}`);
-      return data;
+      return await getProductImages(productId);
     } catch (err) {
       console.error('Erro ao buscar imagens do produto:', err);
       return [];

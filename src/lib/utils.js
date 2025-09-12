@@ -36,3 +36,13 @@ export const maskCNPJ = (value) => {
   value = value.replace(/(\d{4})(\d)/, "$1-$2");
   return value;
 };
+
+export const unmaskCPF = (value) => {
+  if (!value) return "";
+  return value.replace(/\D/g, "");
+};
+
+export const unmaskCNPJ = (value) => {
+  if (!value) return "";
+  return value.replace(/\D/g, "");
+};

@@ -65,7 +65,7 @@ export const useCadastroProduto = () => {
     
 
     try {
-      const response = await api.post(`/v1/products/create/${shopId}`, data);
+      const response = await api.post(`/v1/products/${shopId}`, data);
       console.log("Cadastro de produto response:", response);
       setCadastroSuccess("Produto cadastrado com sucesso!");
     } catch (error) {

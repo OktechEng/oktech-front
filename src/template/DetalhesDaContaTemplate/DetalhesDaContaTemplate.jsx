@@ -5,6 +5,8 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/tabs';
 import DetalhesDaConta from './pages/DetalhesDaConta';
 import HistoricoPedidos from './pages/HistoricoPedidos';
 import MetodosPagamento from './pages/MetodosPagamento';
+import EditUserModal from './components/EditUserModal';
+import DeleteAccountModal from './components/DeleteAccountModal';
 import React from "react";
 
 export default function DetalhesDaContaTemplate() {
@@ -19,9 +21,15 @@ export default function DetalhesDaContaTemplate() {
     isProducer,
     shopData,
     hasShop,
+    isEditModalOpen,
+    isDeleteModalOpen,
     handleTabChange,
     handleEditInfo,
     handleDeleteAccount,
+    handleEditSuccess,
+    handleDeleteSuccess,
+    setIsEditModalOpen,
+    setIsDeleteModalOpen
   } = useDetalhesDaConta();
 
   // Mostrar loading enquanto verifica autenticação
@@ -115,6 +123,23 @@ export default function DetalhesDaContaTemplate() {
           )}
         </Tabs>
       </div>
+
+      {/* Modais */}
+      <EditUserModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        userData={userData}
+        isProducer={isProducer}
+        shopData={shopData}
+        onSuccess={handleEditSuccess}
+      />
+
+      <DeleteAccountModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        userData={userData}
+        onSuccess={handleDeleteSuccess}
+      />
     </div>
   );
 }

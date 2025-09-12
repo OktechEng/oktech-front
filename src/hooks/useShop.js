@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import api from '@/services/api';
+import shopService from '@/services/shop';
 
 export function useShop() {
   const [shopData, setShopData] = useState(null);
@@ -44,12 +45,31 @@ export function useShop() {
     setError(null);
   }, []);
 
+  const updateShopData = useCallback(async (shopId, updateData) => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const updatedShop = await shopService.updateShop(shopId, updateData);
+      setShopData(updatedShop);
+      
+      return updatedShop;
+    } catch (err) {
+      console.error('Erro ao atualizar dados da loja:', err);
+      setError('Erro ao atualizar dados da loja');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return {
     shopData,
     loading,
     error,
     hasShop,
     fetchShopData,
-    clearShopData
+    clearShopData,
+    updateShopData
   };
 }

@@ -154,7 +154,7 @@ export default function HomeTemplate() {
       </section>
       <TelaFaq/>
       {/* Footer */}
-      <footer className="bg-green-800 text-white py-12">
+      <footer id="footer" className="bg-green-800 text-white py-12">
         <div className="max-w-6xl mx-auto px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Logo e Descrição */}
@@ -210,12 +210,10 @@ export default function HomeTemplate() {
 
           {/* Copyright */}
           <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 BOA SAUDE. Todos os direitos reservados.</p>
+            <p>&copy; 2025 BOA SAUDE. Todos os direitos reservados.</p>
           </div>
         </div>
       </footer>
     </div>
   );
 }
-
-

@@ -68,11 +68,11 @@ export const ProductSchema = {
 export class Product {
   constructor(data = {}) {
     this.id = data.id || null;
-    this.nome = data.nome || '';
-    this.preco = data.preco || 0;
-    this.descricao = data.descricao || '';
-    this.categoria = data.categoria || '';
-    this.estoque = data.estoque || 0;
+    this.nome = data.name || data.nome || '';
+    this.preco = data.price || data.preco || 0;
+    this.descricao = data.description || data.descricao || '';
+    this.categoria = data.category || data.categoria || '';
+    this.estoque = data.stock || data.estoque || 0;
     this.ativo = data.ativo !== undefined ? data.ativo : true;
     this.imagens = data.imagens || [];
     this.shopId = data.shopId || '';
@@ -183,4 +183,3 @@ export const PRODUCT_CONSTANTS = {
     INATIVO: false
   }
 };
-

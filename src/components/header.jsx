@@ -138,7 +138,7 @@ export function Header() {
           {isProductor && (
             <>
               <Button className="bg-green-500" onClick={() => router.push("/cadastro-produto")}>Cadastro de Produtos</Button>
-              <Button className="bg-green-500">Meus Produtos</Button>
+              <Button className="bg-green-500" onClick={() => router.push("/meusProdutos")}>Meus Produtos</Button>
             </>
           )}
 
@@ -155,9 +155,6 @@ export function Header() {
               <DropdownMenuContent align="end">
                 <DropdownMenuItem onClick={() => router.push("/conta")}>
                   Meu Perfil
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => router.push("/meusProdutos")}>
-                  Meus Produtos
                 </DropdownMenuItem>
                 {/* Mostrar "Cadastrar Loja" apenas para usuários com role USER */}
                 {role === 'USER' && (

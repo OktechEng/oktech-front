@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import api from '@/services/api';
+import userService from '@/services/user';
 import { useAuth } from '@/hooks/useAuth';
 import { useShop } from '@/hooks/useShop';
 
@@ -8,6 +9,8 @@ export function useDetalhesDaConta() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('detalhe');
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   
   const { isAuthenticated, authError, isLoading: authLoading, checkAuth } = useAuth();
   
@@ -17,7 +20,8 @@ export function useDetalhesDaConta() {
     error: shopError, 
     hasShop, 
     fetchShopData, 
-    clearShopData 
+    clearShopData,
+    updateShopData
   } = useShop();
 
   useEffect(() => {
@@ -55,13 +59,38 @@ export function useDetalhesDaConta() {
   };
 
   const handleEditInfo = () => {
-    // TODO: Funcionalidade a ser implementada
-    console.log('Editar informações');
+    setIsEditModalOpen(true);
   };
 
   const handleDeleteAccount = () => {
-    // TODO: Funcionalidade a ser implementada
-    console.log('Excluir conta');
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleEditSuccess = async () => {
+    // Recarregar dados do usuário e da loja após edição
+    try {
+      setLoading(true);
+      const response = await userService.getCurrentUser();
+      setUserData(response);
+      setError(null);
+      
+      // Se for produtor, recarregar dados da loja também
+      if (response.role === 'PRODUCTOR') {
+        await fetchShopData();
+      }
+    } catch (err) {
+      console.error('Erro ao recarregar dados do usuário:', err);
+      setError('Erro ao recarregar dados do usuário');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteSuccess = () => {
+    // Limpar dados locais e redirecionar para login
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('userData');
+    window.location.href = '/login';
   };
 
   const userRole = userData?.role;
@@ -81,8 +110,15 @@ export function useDetalhesDaConta() {
     isUser,
     shopData,
     hasShop,
+    isEditModalOpen,
+    isDeleteModalOpen,
     handleTabChange,
     handleEditInfo,
-    handleDeleteAccount
+    handleDeleteAccount,
+    handleEditSuccess,
+    handleDeleteSuccess,
+    setIsEditModalOpen,
+    setIsDeleteModalOpen,
+    updateShopData
   };
 }

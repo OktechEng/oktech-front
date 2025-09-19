@@ -179,4 +179,3 @@ export const PRODUCT_CONSTANTS = {
     INATIVO: false
   }
 };
-

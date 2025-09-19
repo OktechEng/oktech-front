@@ -7,58 +7,58 @@ export const ProductSchema = {
   id: {
     type: 'string',
     required: true,
-    description: 'Identificador único do produto'
+    description: 'Unique product identifier'
   },
-  nome: {
+  name: {
     type: 'string',
     required: true,
-    description: 'Nome do produto'
+    description: 'Product name'
   },
-  preco: {
+  price: {
     type: 'number',
     required: true,
-    description: 'Preço do produto em reais'
+    description: 'Product price in BRL'
   },
-  descricao: {
+  description: {
     type: 'string',
     required: false,
-    description: 'Descrição detalhada do produto'
+    description: 'Detailed product description'
   },
-  categoria: {
+  category: {
     type: 'string',
     required: false,
-    description: 'Categoria do produto'
+    description: 'Product category'
   },
-  estoque: {
+  stock: {
     type: 'number',
     required: false,
-    description: 'Quantidade em estoque'
+    description: 'Quantity in stock'
   },
-  ativo: {
+  active: {
     type: 'boolean',
     required: false,
     default: true,
-    description: 'Status do produto (ativo/inativo)'
+    description: 'Product status (active/inactive)'
   },
-  imagens: {
+  images: {
     type: 'array',
     required: false,
-    description: 'Array de URLs das imagens do produto'
+    description: 'Array of product image URLs'
   },
   shopId: {
     type: 'string',
     required: true,
-    description: 'ID da loja à qual o produto pertence'
+    description: 'ID of the shop the product belongs to'
   },
-  dataCriacao: {
+  createdAt: {
     type: 'string',
     required: false,
-    description: 'Data de criação do produto (ISO string)'
+    description: 'Product creation date (ISO string)'
   },
-  dataAtualizacao: {
+  updatedAt: {
     type: 'string',
     required: false,
-    description: 'Data da última atualização do produto (ISO string)'
+    description: 'Product last update date (ISO string)'
   }
 };
 
@@ -68,16 +68,16 @@ export const ProductSchema = {
 export class Product {
   constructor(data = {}) {
     this.id = data.id || null;
-    this.nome = data.nome || '';
-    this.preco = data.preco || 0;
-    this.descricao = data.descricao || '';
-    this.categoria = data.categoria || '';
-    this.estoque = data.estoque || 0;
-    this.ativo = data.ativo !== undefined ? data.ativo : true;
-    this.imagens = data.imagens || [];
+    this.name = data.name || '';
+    this.price = data.price || 0;
+    this.description = data.description || '';
+    this.category = data.category || '';
+    this.stock = data.stock || 0;
+    this.active = data.active !== undefined ? data.active : true;
+    this.images = data.images || [];
     this.shopId = data.shopId || '';
-    this.dataCriacao = data.dataCriacao || new Date().toISOString();
-    this.dataAtualizacao = data.dataAtualizacao || new Date().toISOString();
+    this.createdAt = data.createdAt || new Date().toISOString();
+    this.updatedAt = data.updatedAt || new Date().toISOString();
   }
 
   /**
@@ -87,16 +87,16 @@ export class Product {
   validate() {
     const errors = [];
 
-    if (!this.nome || this.nome.trim() === '') {
-      errors.push('Nome é obrigatório');
+    if (!this.name || this.name.trim() === "") {
+      errors.push("Name is required");
     }
 
-    if (!this.preco || this.preco <= 0) {
-      errors.push('Preço deve ser maior que zero');
+    if (!this.price || this.price <= 0) {
+      errors.push("Price must be greater than zero");
     }
 
-    if (!this.shopId || this.shopId.trim() === '') {
-      errors.push('ID da loja é obrigatório');
+    if (!this.shopId || this.shopId.trim() === "") {
+      errors.push("Shop ID is required");
     }
 
     return {
@@ -112,15 +112,11 @@ export class Product {
   toApiFormat() {
     return {
       id: this.id,
-      nome: this.nome,
-      preco: this.preco,
-      descricao: this.descricao,
-      categoria: this.categoria,
-      estoque: this.estoque,
-      ativo: this.ativo,
-      shopId: this.shopId,
-      dataCriacao: this.dataCriacao,
-      dataAtualizacao: new Date().toISOString()
+      name: this.name,
+      description: this.description,
+      category: this.category,
+      stock: this.stock,
+      price: this.price
     };
   }
 
@@ -129,10 +125,10 @@ export class Product {
    * @returns {string} Preço formatado em reais
    */
   getFormattedPrice() {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(this.preco);
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    }).format(this.price);
   }
 
   /**
@@ -140,8 +136,8 @@ export class Product {
    * @returns {string} URL da imagem
    */
   getPrimaryImage() {
-    return this.imagens && this.imagens.length > 0 
-      ? this.imagens[0] 
+    return this.images && this.images.length > 0 
+      ? this.images[0] 
       : '/img/produto-default.png';
   }
 
@@ -150,7 +146,7 @@ export class Product {
    * @returns {boolean} True se há estoque disponível
    */
   isInStock() {
-    return this.estoque > 0;
+    return this.stock > 0;
   }
 
   /**

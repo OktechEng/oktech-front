@@ -23,25 +23,25 @@ const scrollToSection = (id) => {
     [
       {
         titulo: "Faça um Pedido!",
-        texto: "Faça seu pedido logo após o cadastro. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        texto: "É muito fácil fazer o seu pedido, realize o seu cadastro logo, utilize o Facebook ou Google.",
         img: "https://img.icons8.com/color/128/shopping-cart.png",
         alt: "Carrinho"
       },
       {
         titulo: "Escolha os Produtos",
-        texto: "Selecione os itens frescos de sua preferência. Lorem ipsum dolor sit amet.",
+        texto: "Selecione frutas, verduras e legumes frescos diretamente do nosso catálogo atualizado.",
         img: "https://img.icons8.com/color/128/apple.png",
         alt: "Produtos"
       },
       {
         titulo: "Confirme o Pedido",
-        texto: "Verifique as informações antes de finalizar. Lorem ipsum dolor sit amet.",
+        texto: "Receba sua cesta de produtos frescos no conforto da sua casa, no dia e horário escolhidos.",
         img: "https://img.icons8.com/color/128/checkmark.png",
         alt: "Confirmação"
       },
       {
         titulo: "Receba em Casa",
-        texto: "Entregue com rapidez e qualidade. Lorem ipsum dolor sit amet.",
+        texto: "Receba sua cesta de produtos frescos no conforto da sua casa, no dia e horário escolhidos.",
         img: "https://img.icons8.com/color/128/delivery.png",
         alt: "Entrega"
       }
@@ -49,25 +49,25 @@ const scrollToSection = (id) => {
     [
       {
         titulo: "Agende a Entrega",
-        texto: "Escolha a data e frequência da entrega. Lorem ipsum dolor sit amet.",
+        texto: "Escolha a frequência de entrega que melhor se adapta à sua rotina, semanal ou quinzenal.",
         img: "https://img.icons8.com/color/128/delivery.png",
         alt: "Entrega"
       },
       {
         titulo: "Gerencie Pedidos",
-        texto: "Visualize e altere seus pedidos facilmente. Lorem ipsum dolor sit amet.",
+        texto: "Altere datas ou produtos de pedidos futuros com facilidade, sem precisar refazer o pedido.",
         img: "https://img.icons8.com/color/128/list.png",
         alt: "Gerenciamento"
       },
       {
         titulo: "Notificações",
-        texto: "Receba alertas sobre entregas e promoções. Lorem ipsum dolor sit amet.",
+        texto: "Receba alertas sobre entregas, novidades e promoções exclusivas no seu e-mail ou app.",
         img: "https://img.icons8.com/color/128/bell.png",
         alt: "Notificação"
       },
       {
         titulo: "Suporte Rápido",
-        texto: "Entre em contato em caso de dúvidas. Lorem ipsum dolor sit amet.",
+        texto: "Nossa equipe está disponível para tirar dúvidas e solucionar problemas rapidamente.",
         img: "https://img.icons8.com/color/128/help.png",
         alt: "Suporte"
       }
@@ -75,25 +75,25 @@ const scrollToSection = (id) => {
     [
       {
         titulo: "Cadastro de Produtor",
-        texto: "Cadastre seus produtos e alcance novos clientes. Lorem ipsum dolor sit amet.",
+        texto: "Cadastre seus produtos e alcance novos clientes interessados em alimentos frescos e locais.",
         img: "https://img.icons8.com/color/128/ingredients.png",
         alt: "Produtos"
       },
       {
         titulo: "Perfil do Produtor",
-        texto: "Atualize suas informações e fotos de produtos. Lorem ipsum dolor sit amet.",
+        texto: "Mantenha suas informações atualizadas, incluindo fotos e descrições dos produtos.",
         img: "https://img.icons8.com/color/128/user.png",
         alt: "Perfil"
       },
       {
         titulo: "Controle de Estoque",
-        texto: "Gerencie quantidades disponíveis. Lorem ipsum dolor sit amet.",
+        texto: "Gerencie a quantidade disponível de cada produto de forma prática e segura.",
         img: "https://img.icons8.com/color/128/warehouse.png",
         alt: "Estoque"
       },
       {
         titulo: "Pagamentos",
-        texto: "Receba pagamentos com segurança. Lorem ipsum dolor sit amet.",
+        texto: "Receba pagamentos de forma segura e transparente, diretamente na sua conta.",
         img: "https://img.icons8.com/color/128/money.png",
         alt: "Pagamentos"
       }
@@ -101,25 +101,25 @@ const scrollToSection = (id) => {
     [
       {
         titulo: "Cálculo do Frete",
-        texto: "O frete é calculado com base na distância e quantidade. Lorem ipsum dolor sit amet.",
+        texto: "O valor do frete é baseado na distância do endereço de entrega e no volume do pedido.",
         img: "https://img.icons8.com/color/128/truck.png",
         alt: "Frete"
       },
       {
         titulo: "Opções de Entrega",
-        texto: "Escolha entre entrega rápida ou econômica. Lorem ipsum dolor sit amet.",
+        texto: "Escolha entre entrega rápida, para pedidos urgentes, ou econômica, para mais flexibilidade.",
         img: "https://img.icons8.com/color/128/calendar.png",
         alt: "Opções"
       },
       {
         titulo: "Taxas Extras",
-        texto: "Entenda possíveis cobranças adicionais. Lorem ipsum dolor sit amet.",
+        texto: "Alguns pedidos podem incluir taxas, como embalagens especiais ou regiões distantes.",
         img: "https://img.icons8.com/color/128/price-tag.png",
         alt: "Taxas"
       },
       {
-        titulo: "Política de Cancelamento",
-        texto: "Saiba como cancelar ou reagendar. Lorem ipsum dolor sit amet.",
+        titulo: "Cancelar Pedido",
+        texto: "É possível cancelar ou reagendar pedidos com antecedência sem custos adicionais.",
         img: "https://img.icons8.com/color/128/cancel.png",
         alt: "Cancelamento"
       }
@@ -188,7 +188,7 @@ const scrollToSection = (id) => {
       {/* Texto Final */}
       <p className="text-center text-lg text-gray-700 mt-12 max-w-3xl mx-auto leading-relaxed">
         Nós do <span className="font-semibold">Boa Saúde</span> simplificamos o
-        processo de compra de hortifrúti. Navegue pelo nosso catálogo de
+        processo de compra de hortifruti. Navegue pelo nosso catálogo de
         produtos frescos, escolha seus itens preferidos e agende a entrega com
         facilidade.
       </p>

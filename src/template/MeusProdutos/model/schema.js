@@ -136,9 +136,45 @@ export class Product {
    * @returns {string} URL da imagem
    */
   getPrimaryImage() {
-    return this.images && this.images.length > 0 
-      ? this.images[0] 
-      : '/img/produto-default.png';
+    // Verifica se há imagens disponíveis
+    const hasImages = this.images && Array.isArray(this.images) && this.images.length > 0;
+    const imageUrl = hasImages ? this.images[0].imageUrl : null;
+    
+    return this.resolveImageUrl(imageUrl);
+  }
+
+  /**
+   * Resolve URL da imagem (suporta caminhos relativos retornados pela API)
+   * @param {string} url - URL da imagem
+   * @returns {string} URL resolvida
+   */
+  resolveImageUrl(url) {
+    console.log('Product.resolveImageUrl - Resolving image URL:', url);
+    
+    // Se não há URL, retorna imagem padrão
+    if (!url || url === '') {
+      console.log('No image URL, using default');
+      return '/img/produto-default.png';
+    }
+    
+    // Se já é uma URL completa, retorna como está
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      console.log('Full URL detected:', url);
+      return url;
+    }
+    
+    // Se já começa com /, retorna como está (URL relativa)
+    if (url.startsWith("/")) {
+      console.log('Relative URL starting with /:', url);
+      return url;
+    }
+    
+    // Constrói URL completa usando a base da API
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+    const cleanBase = baseUrl.replace(/\/$/, "");
+    const fullUrl = `${cleanBase}/${url}`;
+    console.log('Constructed full URL:', fullUrl);
+    return fullUrl;
   }
 
   /**

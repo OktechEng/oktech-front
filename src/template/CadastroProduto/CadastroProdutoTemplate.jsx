@@ -17,7 +17,7 @@ export default function CadastroProdutoTemplate() {
     authError,
     isLoading,
     isAuthenticated,
-    router,
+    setValue,
   } = useCadastroProduto();
 
   // Mostrar loading enquanto verifica autenticação
@@ -86,7 +86,11 @@ export default function CadastroProdutoTemplate() {
             {errors.price && <p className="text-red-500 text-sm">{errors.price.message}</p>}
           </div>
 
-          
+          <div>
+            <Label htmlFor="files">Imagens (até 5)</Label>
+            <Input id="files" type="file" accept="image/*" multiple onChange={(e) => setValue('files', e.target.files)} />
+            {errors.files && <p className="text-red-500 text-sm">{errors.files.message}</p>}
+          </div>
 
           <Button type="submit" disabled={isSubmitting} className="w-full bg-green-500 hover:bg-green-400">
             {isSubmitting ? "Cadastrando produto..." : "Cadastrar Produto"}

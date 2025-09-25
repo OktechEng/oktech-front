@@ -21,13 +21,6 @@ export default function HomeTemplate() {
     loading,
     error,
   } = useHome();
-  const categories = [
-    { name: "Frutas", image: "/img/frutas.jpg" },
-    { name: "Legumes", image: "/img/legumes.jpg" },
-    { name: "Verduras", image: "/img/verduras.jpg" },
-    { name: "Cestas", image: "/img/cestas.jpg" },
-    { name: "Sucos", image: "/img/sucos.jpg" }
-  ]
 
   return (
     <div className="min-h-screen bg-white">

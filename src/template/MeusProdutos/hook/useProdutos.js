@@ -43,7 +43,7 @@ export const useProdutos = (shopId) => {
   };
 
   /**
-   * Busca todos os produtos
+   * Busca todos os produtos com suas imagens
    */
   const buscarProdutos = useCallback(async () => {
     setLoading(true);
@@ -51,8 +51,24 @@ export const useProdutos = (shopId) => {
 
     try {
       const data = await apiRequest('/v1/products');
-      const produtosInstances = data.content.map(produto => Product.fromApiData(produto));
+      const products = Array.isArray(data?.content) ? data.content : [];
+
+      // Carrega imagens para cada produto
+      const produtosComImagens = await Promise.all(
+        products.map(async (produto) => {
+          try {
+            const images = await buscarImagensProduto(produto.id);
+            return { ...produto, images };
+          } catch (imageError) {
+            console.warn(`Falha ao buscar imagens do produto ${produto.id}:`, imageError);
+            return { ...produto, images: [] };
+          }
+        })
+      );
+
+      const produtosInstances = produtosComImagens.map(produto => Product.fromApiData(produto));
       setProdutos(produtosInstances);
+      console.log("Produtos com imagens carregados:", produtosInstances);
     } catch (err) {
       setError('Erro ao buscar produtos: ' + err.message);
       setProdutos([]);
@@ -194,6 +210,21 @@ export const useProdutos = (shopId) => {
       }
 
       const data = await response.json();
+      
+      // Após o upload, recarrega as imagens do produto específico
+      if (productId) {
+        try {
+          const updatedImages = await buscarImagensProduto(productId);
+          setProdutos(prev => prev.map(produto => 
+            produto.id === productId 
+              ? { ...produto, images: updatedImages }
+              : produto
+          ));
+        } catch (imageError) {
+          console.warn('Erro ao recarregar imagens após upload:', imageError);
+        }
+      }
+      
       return data;
     } catch (err) {
       setError('Erro ao fazer upload da imagem: ' + err.message);

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useProdutos } from './hook/useProdutos.js';
 import { PRODUCT_CONSTANTS } from './model/schema.js';
 import { useRouter } from 'next/navigation';
@@ -19,6 +20,9 @@ export default function MeusProdutosTemplate({ shopId = "default-shop" }) {
     limparErro,
     recarregar
   } = useProdutos(shopId);
+
+  // Estado para controlar erros de imagem por produto
+  const [imageErrors, setImageErrors] = useState({});
 
   console.log('shopId em MeusProdutosTemplate:', shopId);
 
@@ -101,6 +105,15 @@ export default function MeusProdutosTemplate({ shopId = "default-shop" }) {
     if (window.confirm('Tem certeza que deseja remover este produto?')) {
       await removerProduto(id);
     }
+  };
+
+  // Função para lidar com erro de carregamento da imagem
+  const handleImageError = (productId) => {
+    console.log(`Image failed to load for product ${productId}, using default`);
+    setImageErrors(prev => ({
+      ...prev,
+      [productId]: true
+    }));
   };
 
   return (
@@ -221,14 +234,14 @@ export default function MeusProdutosTemplate({ shopId = "default-shop" }) {
                     key={produto.id}
                     className="bg-white rounded-lg border hover:shadow-lg transition-shadow overflow-hidden"
                   >
-                    <div className="aspect-square bg-gray-100 flex items-center justify-center">
-                      <img
-                        src={produto.getPrimaryImage()}
+                    <div className="aspect-square bg-gray-100 flex items-center justify-center relative overflow-hidden">
+                      <Image
+                        src={imageErrors[produto.id] ? PRODUCT_CONSTANTS.DEFAULT_IMAGE : produto.getPrimaryImage()}
                         alt={produto.name}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.target.src = PRODUCT_CONSTANTS.DEFAULT_IMAGE;
-                        }}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                        onError={() => handleImageError(produto.id)}
                       />
                     </div>
                     

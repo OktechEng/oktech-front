@@ -6,6 +6,6 @@ const cadastroProdutoSchema = z.object({
   category: z.string().min(1, "Categoria é obrigatória"),
   stock: z.number().int(),
   price: z.number(),
-});
+}).passthrough();
 
 export default cadastroProdutoSchema;

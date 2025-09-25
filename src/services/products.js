@@ -38,6 +38,7 @@ export async function getProductById(productId) {
 export async function getProductImages(productId) {
   try {
     const response = await api.get(`/api/product-images/product/${productId}`);
+    console.log(`Images for product ${productId}:`, response.data);
     return response.data;
   } catch (error) {
     console.error(`Error fetching images for product ${productId}:`, error);

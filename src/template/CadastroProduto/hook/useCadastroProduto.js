@@ -29,7 +29,8 @@ export const useCadastroProduto = () => {
       description: "",
       category: "",
       stock: 0,
-      price:0
+      price:0,
+      files: undefined
     },
   });
 
@@ -60,13 +61,24 @@ export const useCadastroProduto = () => {
 
     
     const shop = await api.get('/v1/shops');
-    console.log(shop)
     const shopId = shop.data.id;
     
 
     try {
-      const response = await api.post(`/v1/products/${shopId}`, data);
-      console.log("Cadastro de produto response:", response);
+      const { files, ...productPayload } = data;
+      const response = await api.post(`/v1/products/${shopId}`, productPayload);
+      const productId = response?.data?.id;
+
+      if (productId && files && files.length > 0) {
+        const formData = new FormData();
+        Array.from(files).slice(0, 5).forEach((file) => formData.append('files', file));
+        formData.append('productId', productId);
+
+        await api.post(`/api/product-images/upload-form`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+      }
+
       setCadastroSuccess("Produto cadastrado com sucesso!");
     } catch (error) {
       setCadastroError("Erro ao cadastrar produto. Tente novamente.");
@@ -89,6 +101,7 @@ export const useCadastroProduto = () => {
     authError,
     isLoading,
     isAuthenticated,
-    router
+    router,
+    setValue
   };
 };
